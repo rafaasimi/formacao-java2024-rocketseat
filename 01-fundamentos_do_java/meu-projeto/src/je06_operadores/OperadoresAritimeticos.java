@@ -1,4 +1,4 @@
-package je06_atribuicoes;
+package je06_operadores;
 
 public class OperadoresAritimeticos {
 
