@@ -1,4 +1,4 @@
-package je06_atribuicoes;
+package je07_documentacao;
 
 public class Comentarios {
 
