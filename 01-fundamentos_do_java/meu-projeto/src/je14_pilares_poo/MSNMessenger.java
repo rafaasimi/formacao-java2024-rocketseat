@@ -1,6 +1,6 @@
 package je14_pilares_poo;
 
-public class MSNMessenger extends SistemaMensagemInstantanea {
+public class MSNMessenger extends ServicoMensagemInstantanea {
 
     public void enviarMensagem() {
         System.out.println("Enviando mensagem pelo MSN Messenger");

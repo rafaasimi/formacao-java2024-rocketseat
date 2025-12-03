@@ -4,21 +4,19 @@ public class Computador {
 
     public static void main(String[] args) {
 
-        MSNMessenger msn = new MSNMessenger();
+        ServicoMensagemInstantanea smi = null;
+        String appEscolhido = "fbmessenger";
 
-        msn.enviarMensagem();
-        msn.receberMensagem();
-//        msn.validarConectadoInternet();
-//        msn.salvarHistoricoMensagem();
+        if (appEscolhido.equals("msn")) {
+            smi = new MSNMessenger();
+        } else if (appEscolhido.equals("fbmessenger")) {
+            smi = new FacebookMessenger();
+        } else if (appEscolhido.equals("teelgram")) {
+            smi = new Telegram();
+        }
 
-        FacebookMessenger facebookMessenger = new FacebookMessenger();
-        facebookMessenger.enviarMensagem();
-        facebookMessenger.receberMensagem();
-
-        Telegram telegram = new Telegram();
-        telegram.enviarMensagem();
-        telegram.receberMensagem();
-
+        smi.enviarMensagem();
+        smi.receberMensagem();
     }
 
 }
