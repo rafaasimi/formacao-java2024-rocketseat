@@ -11,6 +11,14 @@ public class Computador {
 //        msn.validarConectadoInternet();
 //        msn.salvarHistoricoMensagem();
 
+        FacebookMessenger facebookMessenger = new FacebookMessenger();
+        facebookMessenger.enviarMensagem();
+        facebookMessenger.receberMensagem();
+
+        Telegram telegram = new Telegram();
+        telegram.enviarMensagem();
+        telegram.receberMensagem();
+
     }
 
 }
