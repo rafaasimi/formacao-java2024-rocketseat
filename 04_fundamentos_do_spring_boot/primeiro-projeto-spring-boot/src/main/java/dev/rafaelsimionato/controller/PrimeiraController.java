@@ -3,6 +3,8 @@ package dev.rafaelsimionato.controller;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -61,6 +63,19 @@ public class PrimeiraController {
     @PostMapping("/usuarios/header")
     public Object criarUsuario(@RequestHeader Map<String, String> headers) {
         return headers.entrySet();
-    };
+    }
+
+    ;
+
+    @GetMapping("/response-entity/{id}")
+    public ResponseEntity<Object> responseEntity(@PathVariable Long id) {
+        var usuario = new Usuario("rafaasimi", 29);
+
+        if (id > 5) {
+            return ResponseEntity.status(HttpStatus.OK).body(usuario);
+        }
+
+        return ResponseEntity.badRequest().body("Número menor que 5");
+    }
 
 }
