@@ -37,7 +37,7 @@ public class PrimeiraController {
         return "Os parâmetros do queryParam são: " + params.entrySet();
     }
 
-    @PostMapping("/usuarios")
+    @PostMapping("/usuarios/body")
     public Object criarUsuario(@RequestBody @Valid Usuario usuario) {
         return usuario;
     }
@@ -48,6 +48,19 @@ public class PrimeiraController {
 
             @Min(value = 18, message = "A idade mínima é 18 anos.")
             int idade
-    ) {};
+    ) {
+    }
+
+    ;
+
+//    @PostMapping("/usuarios/header")
+//    public Object criarUsuario(@RequestHeader("name") String name) {
+//        return name;
+//    };
+
+    @PostMapping("/usuarios/header")
+    public Object criarUsuario(@RequestHeader Map<String, String> headers) {
+        return headers.entrySet();
+    };
 
 }
