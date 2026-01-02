@@ -1,5 +1,6 @@
 package dev.rafaelsimionato.controller;
 
+import dev.rafaelsimionato.ioc_di.MeuComponent;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -76,6 +77,12 @@ public class PrimeiraController {
         }
 
         return ResponseEntity.badRequest().body("Número menor que 5");
+    }
+
+    @GetMapping("/")
+    public String chamandoComponent() {
+        var meuComponent = new MeuComponent();
+        return meuComponent.chamarMeuComponente();
     }
 
 }
