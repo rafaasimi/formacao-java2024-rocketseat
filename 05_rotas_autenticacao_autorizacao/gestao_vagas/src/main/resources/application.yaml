@@ -11,3 +11,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+
+security:
+  token:
+    secret: "GESTAOVAGAS_@123#"
