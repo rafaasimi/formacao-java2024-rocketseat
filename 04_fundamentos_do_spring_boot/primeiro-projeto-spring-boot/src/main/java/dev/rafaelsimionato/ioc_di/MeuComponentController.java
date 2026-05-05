@@ -6,21 +6,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/component")
-public class MeuControllerComponent {
+@RequestMapping("/meu-component")
+public class MeuComponentController {
 
     @Autowired
     MeuComponent meuComponent;
 
-//    @GetMapping()
+    // Maneira errada de gerenciar componente
+//    @GetMapping("/")
 //    public String chamandoComponent() {
 //        var meuComponent = new MeuComponent();
-//        return meuComponent.chamarMeuComponente();
+//        var resultado = meuComponent.chamarMeuComponent();
+//        return resultado;
 //    }
 
-    @GetMapping()
+    @GetMapping("/")
     public String chamandoComponent() {
-        return meuComponent.chamarMeuComponente();
+        var resultado = meuComponent.chamarMeuComponent();
+        return resultado;
     }
 
 }
