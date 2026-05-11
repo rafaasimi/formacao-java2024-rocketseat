@@ -12,7 +12,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -23,16 +22,16 @@ public class CompanyEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @NotBlank(message = "O campo [name] é obrigatório")
     private String name;
 
-    @NotBlank
-    @Pattern(regexp = "^\\S+$", message = "O campo [username] não deve conter espaços")
+    @Pattern(regexp = "^[^\\s]+$", message = "O campo [username] não deve conter espaços")
     private String username;
 
-    @Email(message = "O campo [email] deve conter um e-mail válido")
+    @Email(message = "O campo [email] deve ser um endereço de email válido")
     private String email;
 
-    @Length(min = 7, max = 255, message = "O campo [password] deve conter entre 7 e 16 caracteres")
+    @Length(min = 7, max = 16, message = "O campo [password] deve conter entre 7 e 16 caracteres")
     private String password;
 
     private String website;
@@ -40,4 +39,5 @@ public class CompanyEntity {
 
     @CreationTimestamp
     private LocalDateTime createdAt;
+
 }

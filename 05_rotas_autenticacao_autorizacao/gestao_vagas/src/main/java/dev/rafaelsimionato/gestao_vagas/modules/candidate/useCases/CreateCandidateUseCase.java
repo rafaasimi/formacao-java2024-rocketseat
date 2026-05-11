@@ -13,14 +13,14 @@ public class CreateCandidateUseCase {
     private CandidateRepository candidateRepository;
 
     public CandidateEntity execute(CandidateEntity candidateEntity) {
-        this.candidateRepository
-                .findByUsernameOrEmail(candidateEntity.getUsername(), candidateEntity.getEmail())
-                .ifPresent(((candidate) -> {
-                    throw new UserFoundException();
-                }));
 
+        this.candidateRepository.findByUsernameOrEmail(candidateEntity.getUsername(), candidateEntity.getEmail())
+                .ifPresent(candidate -> {
+                    throw new UserFoundException();
+                });
 
         return this.candidateRepository.save(candidateEntity);
+
     }
 
 }

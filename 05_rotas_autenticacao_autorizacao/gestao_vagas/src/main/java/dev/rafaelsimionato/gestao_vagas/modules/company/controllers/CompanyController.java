@@ -17,8 +17,8 @@ public class CompanyController {
     @Autowired
     private CreateCompanyUseCase createCompanyUseCase;
 
-    @PostMapping()
-    public ResponseEntity<Object> createCompany(@Valid @RequestBody CompanyEntity companyEntity) {
+    @PostMapping("/")
+    public ResponseEntity<Object> create(@Valid @RequestBody CompanyEntity companyEntity) {
         try {
             var result = this.createCompanyUseCase.execute(companyEntity);
             return ResponseEntity.ok().body(result);

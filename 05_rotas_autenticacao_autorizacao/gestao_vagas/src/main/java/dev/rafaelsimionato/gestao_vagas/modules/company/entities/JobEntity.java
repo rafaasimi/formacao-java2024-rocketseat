@@ -15,6 +15,7 @@ public class JobEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
     private String description;
     private String benefits;
 
@@ -22,7 +23,7 @@ public class JobEntity {
     private String level;
 
     @ManyToOne()
-    @JoinColumn(name="company_id", insertable = false, updatable = false)
+    @JoinColumn(name = "company_id", insertable = false, updatable = false)
     private CompanyEntity companyEntity;
 
     @Column(name = "company_id", nullable = false)

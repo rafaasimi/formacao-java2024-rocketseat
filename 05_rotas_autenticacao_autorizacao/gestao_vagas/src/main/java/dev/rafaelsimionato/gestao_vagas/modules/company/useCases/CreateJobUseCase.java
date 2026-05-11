@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class CreateJobUseCase {
 
     @Autowired
-    JobRepository jobRepository;
+    private JobRepository jobRepository;
 
     public JobEntity execute(JobEntity jobEntity) {
         return this.jobRepository.save(jobEntity);

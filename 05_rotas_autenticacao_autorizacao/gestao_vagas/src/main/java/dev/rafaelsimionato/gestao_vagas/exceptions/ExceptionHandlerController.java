@@ -16,15 +16,15 @@ public class ExceptionHandlerController {
 
     private MessageSource messageSource;
 
-    public ExceptionHandlerController(MessageSource messageSource) {
-        this.messageSource = messageSource;
+    public ExceptionHandlerController(MessageSource message) {
+        this.messageSource = message;
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<List<ErrorMessageDTO>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    public ResponseEntity<List<ErrorMessageDTO>> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
         List<ErrorMessageDTO> dto = new ArrayList<>();
 
-        e.getBindingResult().getFieldErrors().forEach(error -> {
+        ex.getBindingResult().getFieldErrors().forEach(error -> {
             String message = messageSource.getMessage(error, LocaleContextHolder.getLocale());
             dto.add(new ErrorMessageDTO(message, error.getField()));
         });
@@ -33,8 +33,8 @@ public class ExceptionHandlerController {
     }
 
     @ExceptionHandler(UserFoundException.class)
-    public ResponseEntity<Object> handleUserFoundException(UserFoundException e) {
-        return ResponseEntity.badRequest().body(e.getMessage());
+    public ResponseEntity<Object> handleUserFoundException(UserFoundException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
     }
 
 }
