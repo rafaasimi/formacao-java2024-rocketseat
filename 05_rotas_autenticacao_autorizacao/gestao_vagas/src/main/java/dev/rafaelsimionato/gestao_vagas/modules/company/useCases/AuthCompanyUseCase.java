@@ -11,6 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.naming.AuthenticationException;
+import java.time.Duration;
+import java.time.Instant;
 
 @Service
 public class AuthCompanyUseCase {
@@ -42,6 +44,7 @@ public class AuthCompanyUseCase {
         // Se for igual -> Gerar token
         Algorithm algorithm = Algorithm.HMAC256(secretKey); // Algoritimo utilizado para assinatura
         var token = JWT.create().withIssuer("gestao-vagas") // Quem emitiu o token
+                .withExpiresAt(Instant.now().plus(Duration.ofHours(2))) // Tempo de expiração do token (Agora + 2horas)
                 .withSubject(company.getId().toString()) // O ID do usuario
                 .sign(algorithm); // Assina digitalmente
 
