@@ -11,4 +11,6 @@ spring:
 
 security:
   token:
-    secret: GESTAO_VAGAS_#123@
+    secret:
+      company: GESTAO_VAGAS_#123@
+      candidate: GESTAO_VAGAS_#456@
