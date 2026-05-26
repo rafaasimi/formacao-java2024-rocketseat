@@ -1,7 +1,7 @@
 package dev.rafaelsimionato.gestao_vagas.enums;
 
 public enum RolesEnum {
-    CANDIDATE;
+    CANDIDATE, COMPANY;
 
     @Override
     public String toString() {
