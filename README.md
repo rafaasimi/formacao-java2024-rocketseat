@@ -9,6 +9,7 @@ Este repositório contém todos os materiais e projetos desenvolvidos na [Forma�
 - [Módulo 02: Java Collections](#-módulo-02-java-collections)
 - [Módulo 03: Maven e JDBC](#-módulo-03-maven-e-jdbc)
 - [Módulo 04: Fundamentos do Spring Boot](#-módulo-04-fundamentos-do-spring-boot)
+- [Módulo 05: Rotas, Autenticação e Autorização](#-módulo-05-rotas-autenticação-e-autorização)
 
 ---
 
@@ -255,12 +256,108 @@ Este módulo introduz o Spring Boot, framework que simplifica o desenvolvimento 
 
 ---
 
+## 🔐 Módulo 05: Rotas, Autenticação e Autorização
+
+Este módulo aprofunda o desenvolvimento de APIs REST com Spring Boot, cobrindo rotas HTTP, persistência com JPA, validação de dados, autenticação com JWT e autorização com Spring Security. O projeto prático **Gestão de Vagas** (`05_rotas_autenticacao_autorizacao/gestao_vagas`) consolida esses conceitos com dois perfis de acesso: **candidato** e **empresa**.
+
+### 📚 Tópicos Abordados
+
+#### 1. **Spring MVC e Controllers REST**
+- Anotações `@RestController` e `@RequestMapping` para definir endpoints
+- Mapeamento de verbos HTTP: `@GetMapping`, `@PostMapping`
+- Recebimento de corpo da requisição com `@RequestBody`
+- Respostas padronizadas com `ResponseEntity` e códigos de status (`ok`, `badRequest`, `unauthorized`)
+- Uso de `HttpServletRequest` para recuperar dados injetados pelos filtros de segurança (ex.: `candidate_id`, `company_id`)
+
+#### 2. **Arquitetura em Camadas e Use Cases**
+- Organização por módulos (`candidate`, `company`)
+- Padrão **Use Case** (`@Service`): regras de negócio isoladas dos controllers
+- **DTOs** para entrada e saída de dados (auth, perfil, criação de vagas)
+- **Lombok**: `@Data`, `@Builder` para reduzir boilerplate em entidades e DTOs
+
+#### 3. **Validação de Dados (Bean Validation)**
+- Dependência `spring-boot-starter-validation`
+- Anotações em entidades e DTOs: `@NotBlank`, `@Email`, `@Pattern`, `@Length`
+- Validação automática com `@Valid` nos controllers
+- Tratamento centralizado com `@ControllerAdvice` e `@ExceptionHandler`
+- `MethodArgumentNotValidException` e `MessageSource` para mensagens de erro por campo
+- Exceções de domínio personalizadas (`UserFoundException`)
+
+#### 4. **Spring Data JPA e Persistência**
+- Dependência `spring-boot-starter-data-jpa`
+- Entidades JPA: `@Entity`, `@Id`, `@GeneratedValue(strategy = GenerationType.UUID)`
+- Repositórios estendendo `JpaRepository<Entity, UUID>`
+- Métodos derivados do Spring Data: `findByUsername`, `findByUsernameOrEmail`
+- Relacionamentos: `@ManyToOne`, `@JoinColumn`
+- `@CreationTimestamp` para data de criação automática
+- Configuração Hibernate (`ddl-auto: update`) no `application.yaml`
+- PostgreSQL via Docker Compose
+
+#### 5. **Spring Security**
+- Dependência `spring-boot-starter-security`
+- Configuração de `SecurityFilterChain` com `HttpSecurity`
+- Desabilitação de CSRF para APIs stateless
+- Rotas públicas vs protegidas com `authorizeHttpRequests` (`permitAll`, `authenticated`)
+- Criptografia de senhas com `BCryptPasswordEncoder`
+- Autorização por papel com `@EnableMethodSecurity` e `@PreAuthorize("hasRole('...')")`
+- Papéis (`RolesEnum`): `CANDIDATE` e `COMPANY`
+
+#### 6. **Autenticação com JWT (JSON Web Token)**
+- Biblioteca **Auth0 java-jwt** para geração e validação de tokens
+- Fluxo de login: validação de credenciais → geração de token assinado (HMAC256)
+- Claims no token: `issuer`, `subject` (ID do usuário), `roles`, `expiresAt`
+- Chaves secretas distintas por perfil (`security.token.secret.candidate` / `company`)
+- Header `Authorization: Bearer <token>` nas requisições autenticadas
+- Providers dedicados: `JWTProvider` (empresa) e `JWTCandidateProvider` (candidato)
+
+#### 7. **Filtros de Segurança Customizados**
+- Implementação de `OncePerRequestFilter` (`SecurityFilter`, `SecurityCandidateFilter`)
+- Validação do token por prefixo de rota (`/company` e `/candidate`)
+- Injeção do ID do usuário no request (`setAttribute`)
+- Montagem do contexto de segurança com `UsernamePasswordAuthenticationToken` e `SimpleGrantedAuthority` (`ROLE_CANDIDATE`, `ROLE_COMPANY`)
+- Integração na cadeia de filtros com `addFilterBefore`
+
+#### 8. **Endpoints da API (Gestão de Vagas)**
+
+| Método | Rota | Acesso | Descrição |
+|--------|------|--------|-----------|
+| `POST` | `/candidate/` | Público | Cadastro de candidato |
+| `POST` | `/candidate/auth` | Público | Login do candidato (retorna JWT) |
+| `GET` | `/candidate/` | `CANDIDATE` | Perfil do candidato autenticado |
+| `POST` | `/company/` | Público | Cadastro de empresa |
+| `POST` | `/company/auth` | Público | Login da empresa (retorna JWT) |
+| `POST` | `/company/job/` | `COMPANY` | Criação de vaga pela empresa autenticada |
+
+### 🗄️ Tecnologias Utilizadas no Módulo
+
+- **Spring Boot Web MVC**
+- **Spring Data JPA** + **PostgreSQL**
+- **Spring Security** + **BCrypt**
+- **Auth0 java-jwt**
+- **Bean Validation**
+- **Lombok**
+- **Docker Compose** (banco de dados local)
+
+### 🎯 Projeto Prático
+
+- **Gestão de Vagas**: API REST para cadastro e autenticação de candidatos e empresas, com perfil protegido por JWT e criação de vagas vinculadas à empresa logada.
+
+
+<img  src=".github/05_rotas_autenticacao_autorizacao/apidog_gestaovagas.jpg"/>
+
+---
+
 ## 🛠️ Tecnologias Utilizadas
 
-- **Java 21**
+- **Java 25+**
 - **Apache Maven**
 - **PostgreSQL**
-- **Spring Boot 4.0.1**
+- **Spring Boot 4.x**
+- **Spring Data JPA**
+- **Spring Security**
+- **Auth0 java-jwt**
+- **Lombok**
+- **Docker Compose**
 - **JDBC**
 
 ---
@@ -277,3 +374,5 @@ Este módulo introduz o Spring Boot, framework que simplifica o desenvolvimento 
 ## 📄 Licença
 
 Este repositório é para fins educacionais e contém materiais do curso Formação Java 2024 da Rocketseat.
+
+Toda a documentação presente no `README.md` foi gerado por IA e revisada pelo autor.
