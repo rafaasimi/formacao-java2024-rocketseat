@@ -1,3 +1,10 @@
 spring:
   application:
     name: cursos_programacao
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cursos_programacao
+    username: admin
+    password: admin
+  jpa:
+    hibernate:
+      ddl-auto: update

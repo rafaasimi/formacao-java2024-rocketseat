@@ -1,0 +1,12 @@
+version: '4.72'
+
+services:
+  postgres:
+    container_name: cursos_programacao_postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: cursos_programacao
+    ports:
+      - "5432:5432"
