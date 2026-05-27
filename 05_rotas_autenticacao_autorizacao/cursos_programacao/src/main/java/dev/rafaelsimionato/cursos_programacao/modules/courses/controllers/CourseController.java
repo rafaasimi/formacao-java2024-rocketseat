@@ -3,10 +3,13 @@ package dev.rafaelsimionato.cursos_programacao.modules.courses.controllers;
 import dev.rafaelsimionato.cursos_programacao.modules.courses.CourseEntity;
 import dev.rafaelsimionato.cursos_programacao.modules.courses.useCases.CreateCourseUseCase;
 import dev.rafaelsimionato.cursos_programacao.modules.courses.useCases.GetCourseUseCase;
+import dev.rafaelsimionato.cursos_programacao.modules.courses.useCases.UpdateCourseUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/courses")
@@ -17,6 +20,9 @@ public class CourseController {
 
     @Autowired
     private GetCourseUseCase getCourseUseCase;
+
+    @Autowired
+    private UpdateCourseUseCase updateCourseUseCase;
 
     @PostMapping("/")
     public ResponseEntity<Object> createCourse(@RequestBody CourseEntity courseEntity) {
@@ -37,6 +43,16 @@ public class CourseController {
             return ResponseEntity.ok(result);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateCourse(@PathVariable UUID id, @RequestBody CourseEntity courseEntity) {
+        try {
+            var result = this.updateCourseUseCase.execute(id, courseEntity);
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
