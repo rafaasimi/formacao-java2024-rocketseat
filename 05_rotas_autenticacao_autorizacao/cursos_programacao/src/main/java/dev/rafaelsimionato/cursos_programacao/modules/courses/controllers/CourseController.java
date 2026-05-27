@@ -29,12 +29,14 @@ public class CourseController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<Object> getCourses() {
+    public ResponseEntity<Object> getCourses(
+            @RequestParam(required = false, defaultValue = "") String name,
+            @RequestParam(required = false, defaultValue = "") String category) {
         try {
-            var result = this.getCourseUseCase.execute();
+            var result = this.getCourseUseCase.execute(name, category);
             return ResponseEntity.ok(result);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error fetching courses");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
