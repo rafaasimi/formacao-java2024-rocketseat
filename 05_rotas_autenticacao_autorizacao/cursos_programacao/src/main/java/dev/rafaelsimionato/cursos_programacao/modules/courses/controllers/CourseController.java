@@ -1,10 +1,7 @@
 package dev.rafaelsimionato.cursos_programacao.modules.courses.controllers;
 
 import dev.rafaelsimionato.cursos_programacao.modules.courses.CourseEntity;
-import dev.rafaelsimionato.cursos_programacao.modules.courses.useCases.CreateCourseUseCase;
-import dev.rafaelsimionato.cursos_programacao.modules.courses.useCases.DeleteCourseUseCase;
-import dev.rafaelsimionato.cursos_programacao.modules.courses.useCases.GetCourseUseCase;
-import dev.rafaelsimionato.cursos_programacao.modules.courses.useCases.UpdateCourseUseCase;
+import dev.rafaelsimionato.cursos_programacao.modules.courses.useCases.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +24,9 @@ public class CourseController {
 
     @Autowired
     private DeleteCourseUseCase deleteCourseUseCase;
+
+    @Autowired
+    private ToggleActiveCourseUseCase toggleActiveCourseUseCase;
 
     @PostMapping("/")
     public ResponseEntity<Object> createCourse(@RequestBody CourseEntity courseEntity) {
@@ -61,12 +61,22 @@ public class CourseController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCourse(@PathVariable UUID id) {
+    public ResponseEntity<Object> deleteCourse(@PathVariable UUID id) {
         try {
             this.deleteCourseUseCase.execute(id);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+
+    @PatchMapping("/{id}/active")
+    public ResponseEntity<Object> toggleActiveCourse(@PathVariable UUID id) {
+        try {
+            var result = this.toggleActiveCourseUseCase.execute(id);
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
