@@ -32,7 +32,7 @@ public class CourseController {
     public ResponseEntity<Object> createCourse(@RequestBody CourseEntity courseEntity) {
         try {
             var result = this.createCourseUseCase.execute(courseEntity);
-            return ResponseEntity.ok(result);
+            return ResponseEntity.status(HttpStatus.CREATED).body(result);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error creating course");
         }
