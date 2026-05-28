@@ -4,7 +4,7 @@ import dev.rafaelsimionato.gestao_vagas.modules.candidate.CandidateEntity;
 import dev.rafaelsimionato.gestao_vagas.modules.candidate.useCases.CreateCandidateUseCase;
 import dev.rafaelsimionato.gestao_vagas.modules.candidate.useCases.ListAllJobsByFilterUseCase;
 import dev.rafaelsimionato.gestao_vagas.modules.candidate.useCases.ProfileCandidateUseCase;
-import dev.rafaelsimionato.gestao_vagas.modules.company.entities.JobEntity;
+import dev.rafaelsimionato.gestao_vagas.modules.company.dto.JobResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -66,12 +66,12 @@ public class CandidateController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", content = {
                     @Content(
-                            array = @ArraySchema(schema = @Schema(implementation = JobEntity.class))
+                            array = @ArraySchema(schema = @Schema(implementation = JobResponseDTO.class))
                     )
             }),
     })
     @SecurityRequirement(name = "jwt_auth")
-    public List<JobEntity> findJobByFilter(@RequestParam String filter) {
+    public List<JobResponseDTO> findJobByFilter(@RequestParam String filter) {
         return this.listAllJobsByFilterUseCase.execute(filter);
     }
 

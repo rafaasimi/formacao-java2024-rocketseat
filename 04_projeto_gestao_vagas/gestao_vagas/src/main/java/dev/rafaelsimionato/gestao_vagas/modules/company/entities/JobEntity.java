@@ -1,5 +1,6 @@
 package dev.rafaelsimionato.gestao_vagas.modules.company.entities;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -22,10 +23,14 @@ public class JobEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Schema(example = "Vaga para Desenvolvedor Java")
     private String description;
+
+    @Schema(example = "Vale transporte, plano de saúde")
     private String benefits;
 
     @NotBlank(message = "O campo [level] é obrigatório")
+    @Schema(example = "Pleno")
     private String level;
 
     @ManyToOne()

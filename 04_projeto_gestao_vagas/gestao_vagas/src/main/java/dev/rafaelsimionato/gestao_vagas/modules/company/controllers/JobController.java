@@ -1,8 +1,16 @@
 package dev.rafaelsimionato.gestao_vagas.modules.company.controllers;
 
 import dev.rafaelsimionato.gestao_vagas.modules.company.dto.CreateJobDTO;
+import dev.rafaelsimionato.gestao_vagas.modules.company.dto.JobResponseDTO;
 import dev.rafaelsimionato.gestao_vagas.modules.company.entities.JobEntity;
 import dev.rafaelsimionato.gestao_vagas.modules.company.useCases.CreateJobUseCase;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +32,16 @@ public class JobController {
 
     @PostMapping("/")
     @PreAuthorize("hasRole('COMPANY')")
+    @Tag(name = "Vagas", description = "Endpoints relacionados as vagas")
+    @Operation(summary = "Cadastro de vagas", description = "Esse endpoint é responsável por cadastrar uma nova vaga dentro da empresa")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", content = {
+                    @Content(
+                            schema = @Schema(implementation = JobResponseDTO.class)
+                    )
+            }),
+    })
+    @SecurityRequirement(name = "jwt_auth")
     public ResponseEntity<Object> create(@Valid @RequestBody CreateJobDTO createJobDTO, HttpServletRequest request) {
 
         var companyId = request.getAttribute("company_id");
