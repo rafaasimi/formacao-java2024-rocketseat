@@ -2,6 +2,7 @@ package dev.rafaelsimionato.cursos_programacao.modules.courses.controllers;
 
 import dev.rafaelsimionato.cursos_programacao.modules.courses.CourseEntity;
 import dev.rafaelsimionato.cursos_programacao.modules.courses.useCases.CreateCourseUseCase;
+import dev.rafaelsimionato.cursos_programacao.modules.courses.useCases.DeleteCourseUseCase;
 import dev.rafaelsimionato.cursos_programacao.modules.courses.useCases.GetCourseUseCase;
 import dev.rafaelsimionato.cursos_programacao.modules.courses.useCases.UpdateCourseUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class CourseController {
 
     @Autowired
     private UpdateCourseUseCase updateCourseUseCase;
+
+    @Autowired
+    private DeleteCourseUseCase deleteCourseUseCase;
 
     @PostMapping("/")
     public ResponseEntity<Object> createCourse(@RequestBody CourseEntity courseEntity) {
@@ -52,7 +56,17 @@ public class CourseController {
             var result = this.updateCourseUseCase.execute(id, courseEntity);
             return ResponseEntity.ok(result);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCourse(@PathVariable UUID id) {
+        try {
+            this.deleteCourseUseCase.execute(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 
