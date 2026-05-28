@@ -340,10 +340,30 @@ Este módulo aprofunda o desenvolvimento de APIs REST com Spring Boot, cobrindo 
 
 ### 🎯 Projeto Prático
 
-- **Gestão de Vagas**: API REST para cadastro e autenticação de candidatos e empresas, com perfil protegido por JWT e criação de vagas vinculadas à empresa logada.
+- **Gestão de Vagas** (`05_rotas_autenticacao_autorizacao/gestao_vagas`): API REST para cadastro e autenticação de candidatos e empresas, com perfil protegido por JWT e criação de vagas vinculadas à empresa logada
 
+![Coleção Apidog — Gestão de Vagas](.github/05_rotas_autenticacao_autorizacao/apidog_gestaovagas.jpg)
 
-<img  src=".github/05_rotas_autenticacao_autorizacao/apidog_gestaovagas.jpg"/>
+### 🏆 Desafio Entregue: Cursos Programação
+
+Desafio do módulo com API REST de gerenciamento de cursos de programação, implementado em `05_rotas_autenticacao_autorizacao/cursos_programacao`. O projeto aplica rotas HTTP, persistência com JPA/PostgreSQL e o padrão de Use Cases visto ao longo do módulo.
+
+**Requisitos atendidos:**
+
+- CRUD completo de cursos (`name`, `category`, `teacher`)
+- Listagem com filtros opcionais por `name` e `category` (query params)
+- Ativação/desativação de curso via `PATCH`
+- Tratamento de erros com `CourseNotFoundException` e `@ControllerAdvice`
+
+| Método | Rota | Descrição |
+|--------|------|-----------|
+| `POST` | `/courses/` | Criar novo curso |
+| `GET` | `/courses/` | Buscar cursos (filtros: `?name=` e `?category=`) |
+| `PUT` | `/courses/{id}` | Atualizar curso |
+| `DELETE` | `/courses/{id}` | Deletar curso |
+| `PATCH` | `/courses/{id}/active` | Habilitar/desabilitar curso |
+
+![Teste no Apidog — Criar novo curso (POST /courses/)](.github/05_rotas_autenticacao_autorizacao/apidog_cursosprogramacao.png)
 
 ---
 
