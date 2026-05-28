@@ -11,9 +11,22 @@ Este repositório contém todos os materiais e projetos desenvolvidos na [Forma�
 - [Módulo 04: Fundamentos do Spring Boot](#-módulo-04-fundamentos-do-spring-boot)
 - [Módulo 05: Rotas, Autenticação e Autorização](#-módulo-05-rotas-autenticação-e-autorização)
 
+### 📁 Estrutura do Repositório
+
+| Pasta | Conteúdo |
+|-------|----------|
+| `01_fundamentos_do_java/meu-projeto` | Fundamentos da linguagem Java |
+| `02_ainda_sobre_java/java-collections` | Java Collections |
+| `02_ainda_sobre_java/maven-rocketseat` | Maven e JDBC |
+| `03_comecando_no_spring_boot/primeiro-projeto-spring-boot` | Primeiros passos com Spring Boot |
+| `04_projeto_gestao_vagas/gestao_vagas` | API Gestão de Vagas (projeto do módulo) |
+| `04_projeto_gestao_vagas/cursos_programacao` | Desafio Cursos Programação |
+
 ---
 
 ## 💻 Módulo 01: Fundamentos do Java
+
+Pasta: `01_fundamentos_do_java/meu-projeto`
 
 Este módulo cobre os fundamentos essenciais da linguagem Java, desde sintaxe básica até conceitos avançados de programação orientada a objetos.
 
@@ -120,37 +133,39 @@ Este módulo cobre os fundamentos essenciais da linguagem Java, desde sintaxe b�
 
 ### 🎯 Projetos Práticos
 
-- **Sistema de Livraria**: Projeto completo implementando classes (Autor, Livro, Emprestimo, Biblioteca) com operações de empréstimo e devolução
-- **Sistema de Cadastros**: Sistema de leitura e escrita de arquivos usando Java NIO
+- **Sistema de Livraria** (`src/desafio_sistema_livraria`): Projeto completo implementando classes (Autor, Livro, Emprestimo, Biblioteca) com operações de empréstimo e devolução
+- **Sistema de Cadastros** (`src/je26_java_nio`): Sistema de leitura e escrita de arquivos usando Java NIO
 
 ---
 
 ## 📦 Módulo 02: Java Collections
 
+Pasta: `02_ainda_sobre_java/java-collections`
+
 Este módulo aborda as estruturas de dados e coleções do Java, essenciais para manipulação eficiente de conjuntos de dados.
 
 ### 📚 Tópicos Abordados
 
-#### 1. **Arrays (je29_arrays/Arrays.java)**
+#### 1. **Arrays (`src/je29_arrays/Arrays.java`)**
 - Declaração e inicialização de arrays
 - Arrays unidimensionais
 - Iteração sobre arrays (for tradicional e enhanced for)
 - Acesso por índice
 
-#### 2. **Listas (je29_arrays/Listas.java)**
+#### 2. **Listas (`src/je29_arrays/Listas.java`)**
 - Interface `List` e implementações
 - **ArrayList**: Lista dinâmica baseada em array
 - Métodos essenciais: add(), remove(), get(), indexOf(), contains(), size()
 - Iteração sobre listas
 
-#### 3. **Conjuntos (je29_arrays/Conjuntos.java)**
+#### 3. **Conjuntos (`src/je29_arrays/Conjuntos.java`)**
 - Interface `Set` e suas implementações
 - **HashSet**: Conjunto sem ordem definida
 - **LinkedHashSet**: Conjunto mantendo ordem de inserção
 - **TreeSet**: Conjunto ordenado
 - Propriedade de unicidade (sem elementos duplicados)
 
-#### 4. **Mapas (je29_arrays/Mapas.java)**
+#### 4. **Mapas (`src/je29_arrays/Mapas.java`)**
 - Interface `Map` e implementações
 - **HashMap**: Mapa sem ordem definida
 - **LinkedHashMap**: Mapa mantendo ordem de inserção
@@ -158,7 +173,7 @@ Este módulo aborda as estruturas de dados e coleções do Java, essenciais para
 - Operações: put(), get(), keySet(), values()
 - Iteração sobre mapas usando Iterator
 
-#### 5. **Generics (je29_arrays/Generics.java)**
+#### 5. **Generics (`src/je29_arrays/Generics.java`)**
 - Tipagem genérica em coleções
 - Type safety
 - Collections com tipos específicos: `List<String>`, `List<Integer>`
@@ -176,6 +191,8 @@ Este módulo aborda as estruturas de dados e coleções do Java, essenciais para
 ---
 
 ## 🔧 Módulo 03: Maven e JDBC
+
+Pasta: `02_ainda_sobre_java/maven-rocketseat`
 
 Este módulo introduz o gerenciamento de dependências com Maven e a comunicação com bancos de dados usando JDBC.
 
@@ -196,7 +213,7 @@ Este módulo introduz o gerenciamento de dependências com Maven e a comunicaç�
 - Operações CRUD (Create, Read, Update, Delete)
 
 #### 3. **Padrão Repository**
-- Classe `CadastroRepository`: Abstração de acesso a dados
+- Classe `CadastroRepository` (`src/main/java/CadastroRepository.java`): Abstração de acesso a dados
 - Métodos:
   - `incluir()`: INSERT de novos registros
   - `listar()`: SELECT de todos os registros
@@ -204,7 +221,7 @@ Este módulo introduz o gerenciamento de dependências com Maven e a comunicaç�
   - `alterar()`: UPDATE de registros
   - `excluir()`: DELETE de registros
 
-#### 4. **Classe de Conexão (Conexao.java)**
+#### 4. **Classe de Conexão (`src/main/java/Conexao.java`)**
 - Singleton pattern para conexão
 - Configuração de conexão (URL, usuário, senha)
 - Gerenciamento de recursos
@@ -222,6 +239,8 @@ Este módulo introduz o gerenciamento de dependências com Maven e a comunicaç�
 ---
 
 ## 🚀 Módulo 04: Fundamentos do Spring Boot
+
+Pasta: `03_comecando_no_spring_boot/primeiro-projeto-spring-boot`
 
 Este módulo introduz o Spring Boot, framework que simplifica o desenvolvimento de aplicações Java enterprise.
 
@@ -258,7 +277,9 @@ Este módulo introduz o Spring Boot, framework que simplifica o desenvolvimento 
 
 ## 🔐 Módulo 05: Rotas, Autenticação e Autorização
 
-Este módulo aprofunda o desenvolvimento de APIs REST com Spring Boot, cobrindo rotas HTTP, persistência com JPA, validação de dados, autenticação com JWT e autorização com Spring Security. O projeto prático **Gestão de Vagas** (`05_rotas_autenticacao_autorizacao/gestao_vagas`) consolida esses conceitos com dois perfis de acesso: **candidato** e **empresa**.
+Pasta: `04_projeto_gestao_vagas`
+
+Este módulo aprofunda o desenvolvimento de APIs REST com Spring Boot, cobrindo rotas HTTP, persistência com JPA, validação de dados, autenticação com JWT e autorização com Spring Security. O projeto prático **Gestão de Vagas** (`04_projeto_gestao_vagas/gestao_vagas`) consolida esses conceitos com dois perfis de acesso: **candidato** e **empresa**.
 
 ### 📚 Tópicos Abordados
 
@@ -340,13 +361,13 @@ Este módulo aprofunda o desenvolvimento de APIs REST com Spring Boot, cobrindo 
 
 ### 🎯 Projeto Prático
 
-- **Gestão de Vagas** (`05_rotas_autenticacao_autorizacao/gestao_vagas`): API REST para cadastro e autenticação de candidatos e empresas, com perfil protegido por JWT e criação de vagas vinculadas à empresa logada
+- **Gestão de Vagas** (`04_projeto_gestao_vagas/gestao_vagas`): API REST para cadastro e autenticação de candidatos e empresas, com perfil protegido por JWT e criação de vagas vinculadas à empresa logada
 
-![Coleção Apidog — Gestão de Vagas](.github/05_rotas_autenticacao_autorizacao/apidog_gestaovagas.jpg)
+![Coleção Apidog — Gestão de Vagas](.github/04_projeto_gestao_vagas/apidog_gestaovagas.jpg)
 
 ### 🏆 Desafio Entregue: Cursos Programação
 
-Desafio do módulo com API REST de gerenciamento de cursos de programação, implementado em `05_rotas_autenticacao_autorizacao/cursos_programacao`. O projeto aplica rotas HTTP, persistência com JPA/PostgreSQL e o padrão de Use Cases visto ao longo do módulo.
+Desafio do módulo com API REST de gerenciamento de cursos de programação, implementado em `04_projeto_gestao_vagas/cursos_programacao`. O projeto aplica rotas HTTP, persistência com JPA/PostgreSQL e o padrão de Use Cases visto ao longo do módulo.
 
 **Requisitos atendidos:**
 
@@ -363,7 +384,7 @@ Desafio do módulo com API REST de gerenciamento de cursos de programação, imp
 | `DELETE` | `/courses/{id}` | Deletar curso |
 | `PATCH` | `/courses/{id}/active` | Habilitar/desabilitar curso |
 
-![Teste no Apidog — Criar novo curso (POST /courses/)](.github/05_rotas_autenticacao_autorizacao/apidog_cursosprogramacao.png)
+![Teste no Apidog — Criar novo curso (POST /courses/)](.github/04_projeto_gestao_vagas/apidog_cursosprogramacao.png)
 
 ---
 
