@@ -22,6 +22,7 @@ public class UpdateCourseUseCase {
 
         course.setName(courseEntity.getName());
         course.setCategory(courseEntity.getCategory());
+        course.setTeacher(courseEntity.getTeacher());
 
         return this.courseRepository.save(course);
     }

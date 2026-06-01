@@ -15,14 +15,24 @@ public class GetCourseUseCase {
     private CourseRepository courseRepository;
 
     public List<CourseEntity> execute(String name, String category) {
-        var courses = this.courseRepository.findByNameContainingIgnoreCaseOrCategoryContainingIgnoreCase(name, category);
+
+        List<CourseEntity> courses;
+
+        if (name.isBlank() && category.isBlank()) {
+            courses = courseRepository.findAll();
+        } else if (name.isBlank()) {
+            courses = courseRepository.findByCategoryContainingIgnoreCase(category);
+        } else if (category.isBlank()) {
+            courses = courseRepository.findByNameContainingIgnoreCase(name);
+        } else {
+            courses = courseRepository.findByNameContainingIgnoreCaseAndCategoryContainingIgnoreCase(name, category);
+        }
 
         if (courses.isEmpty()) {
             throw new CourseNotFoundException();
         }
 
         return courses;
-
     }
 
 }
