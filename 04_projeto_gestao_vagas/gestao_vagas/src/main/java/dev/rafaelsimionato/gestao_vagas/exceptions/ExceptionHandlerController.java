@@ -37,4 +37,14 @@ public class ExceptionHandlerController {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
 
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+
+    @ExceptionHandler(JobNotFoundException.class)
+    public ResponseEntity<Object> handleJobNotFoundException(JobNotFoundException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+
 }
