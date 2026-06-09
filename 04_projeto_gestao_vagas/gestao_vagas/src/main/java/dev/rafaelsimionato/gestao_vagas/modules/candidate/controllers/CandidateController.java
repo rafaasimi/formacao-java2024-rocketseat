@@ -2,6 +2,7 @@ package dev.rafaelsimionato.gestao_vagas.modules.candidate.controllers;
 
 import dev.rafaelsimionato.gestao_vagas.modules.candidate.CandidateEntity;
 import dev.rafaelsimionato.gestao_vagas.modules.candidate.dto.ProfileCandidateResponseDTO;
+import dev.rafaelsimionato.gestao_vagas.modules.candidate.useCases.ApplyJobCandidateUseCase;
 import dev.rafaelsimionato.gestao_vagas.modules.candidate.useCases.CreateCandidateUseCase;
 import dev.rafaelsimionato.gestao_vagas.modules.candidate.useCases.ListAllJobsByFilterUseCase;
 import dev.rafaelsimionato.gestao_vagas.modules.candidate.useCases.ProfileCandidateUseCase;
@@ -37,6 +38,9 @@ public class CandidateController {
 
     @Autowired
     private ListAllJobsByFilterUseCase listAllJobsByFilterUseCase;
+
+    @Autowired
+    private ApplyJobCandidateUseCase applyJobCandidateUseCase;
 
     @PostMapping("/")
     @Operation(summary = "Cadastro de candidato", description = "Esse endpoint é responsável por cadastrar um novo candidato")
@@ -87,6 +91,22 @@ public class CandidateController {
     @SecurityRequirement(name = "jwt_auth")
     public List<JobResponseDTO> findJobByFilter(@RequestParam String filter) {
         return this.listAllJobsByFilterUseCase.execute(filter);
+    }
+
+    @PostMapping("/job/apply")
+    @PreAuthorize("hasRole('CANDIDATE')")
+    @Operation(summary = "Inscrição do candidato para uma vaga", description = "Esse endpoint é responsável por realizar a inscrição de um candidato para uma vaga")
+    @SecurityRequirement(name = "jwt_auth")
+    public ResponseEntity<Object> applyJob(HttpServletRequest request, @RequestBody UUID idJob) {
+        var idCandidate = request.getAttribute("candidate_id");
+
+        try {
+            var result = this.applyJobCandidateUseCase.execute(UUID.fromString(idCandidate.toString()), idJob);
+            return ResponseEntity.ok().body(result);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
     }
 
 }
