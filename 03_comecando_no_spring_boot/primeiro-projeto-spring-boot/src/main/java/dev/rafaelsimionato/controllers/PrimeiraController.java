@@ -31,4 +31,11 @@ public class PrimeiraController {
         return ResponseEntity.ok(params);
     }
 
+    @PostMapping("/usuario/criar")
+    public String criarUsuario(@RequestBody Usuario usuario) {
+        return String.format("Usuário %s com a senha %s criado com sucesso.",  usuario.username(), usuario.password());
+    }
+
+    record Usuario(String username, String password) {}
+
 }
