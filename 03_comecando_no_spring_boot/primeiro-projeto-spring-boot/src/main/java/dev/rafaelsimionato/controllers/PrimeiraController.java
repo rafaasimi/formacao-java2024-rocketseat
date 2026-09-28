@@ -1,5 +1,6 @@
-package dev.rafaelsimionato.main;
+package dev.rafaelsimionato.controllers;
 
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
