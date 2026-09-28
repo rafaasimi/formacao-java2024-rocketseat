@@ -1,4 +1,4 @@
-package dev.rafaelsimionato.primeiro_projeto_spring_boot;
+package dev.rafaelsimionato.main;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
