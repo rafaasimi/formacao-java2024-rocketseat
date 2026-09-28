@@ -32,10 +32,15 @@ public class PrimeiraController {
     }
 
     @PostMapping("/usuario/criar")
-    public String criarUsuario(@RequestBody Usuario usuario) {
-        return String.format("Usuário %s com a senha %s criado com sucesso.",  usuario.username(), usuario.password());
+    public String criarUsuario(@RequestHeader String canal, @RequestBody Usuario usuario) {
+        return String.format("Usuário %s com a senha %s criado com sucesso via %s.",  usuario.username(), usuario.password(), canal);
     }
 
     record Usuario(String username, String password) {}
+
+    @PostMapping("/headers")
+    public String recuperarHeaders(@RequestHeader Map<String, String> headers) {
+        return "headers: " + headers.entrySet();
+    }
 
 }
