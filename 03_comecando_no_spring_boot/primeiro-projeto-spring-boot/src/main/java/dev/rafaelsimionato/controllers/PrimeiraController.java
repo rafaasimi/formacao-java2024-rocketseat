@@ -1,5 +1,6 @@
 package dev.rafaelsimionato.controllers;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,6 +42,11 @@ public class PrimeiraController {
     @PostMapping("/headers")
     public String recuperarHeaders(@RequestHeader Map<String, String> headers) {
         return "headers: " + headers.entrySet();
+    }
+
+    @GetMapping("/metodoResponseEntity")
+    public ResponseEntity<String> metodoResponseEntity() {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Mensagem de erro.");
     }
 
 }
