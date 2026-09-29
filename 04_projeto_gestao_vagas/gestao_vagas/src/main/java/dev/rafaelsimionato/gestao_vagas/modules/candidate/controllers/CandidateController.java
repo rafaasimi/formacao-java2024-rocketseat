@@ -3,7 +3,6 @@ package dev.rafaelsimionato.gestao_vagas.modules.candidate.controllers;
 import dev.rafaelsimionato.gestao_vagas.modules.candidate.entities.CandidateEntity;
 import dev.rafaelsimionato.gestao_vagas.modules.candidate.useCases.CreateCandidateUseCase;
 import jakarta.validation.Valid;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,12 +20,8 @@ public class CandidateController {
 
     @PostMapping("/")
     public ResponseEntity<Object> create(@Valid @RequestBody CandidateEntity candidateEntity) {
-        try {
-            var result = createCandidateUseCase.execute(candidateEntity);
-            return ResponseEntity.status(HttpStatus.CREATED).body(result);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
+        var result = createCandidateUseCase.execute(candidateEntity);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
 }
