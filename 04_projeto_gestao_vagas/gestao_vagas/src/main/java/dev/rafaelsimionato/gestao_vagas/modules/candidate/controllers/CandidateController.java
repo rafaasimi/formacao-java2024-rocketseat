@@ -1,5 +1,6 @@
 package dev.rafaelsimionato.gestao_vagas.modules.candidate.controllers;
 
+import dev.rafaelsimionato.gestao_vagas.exceptions.UserFoundException;
 import dev.rafaelsimionato.gestao_vagas.modules.candidate.entities.CandidateEntity;
 import dev.rafaelsimionato.gestao_vagas.modules.candidate.repositories.CandidateRepository;
 import jakarta.validation.Valid;
@@ -20,6 +21,14 @@ public class CandidateController {
 
     @PostMapping("/")
     public ResponseEntity<CandidateEntity> create(@Valid @RequestBody CandidateEntity candidateEntity) {
+
+        candidateRepository
+                .findByUsernameOrEmail(candidateEntity.getUsername(), candidateEntity.getEmail())
+                .ifPresent((candidate) -> {
+                    throw new UserFoundException();
+                });
+
+
         CandidateEntity candidate = candidateRepository.save(candidateEntity);
         return ResponseEntity.status(HttpStatus.CREATED).body(candidate);
     }
