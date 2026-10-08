@@ -11,12 +11,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.naming.AuthenticationException;
+import java.time.Duration;
+import java.time.Instant;
 
 @Service
 public class AuthCompanyUseCase {
 
     @Value("${security.token.secret}")
     private String secretKey;
+
+        @Value("${security.token.expireInHours}")
+    private String expireInHours;
 
     @Autowired
     private CompanyRepository companyRepository;
@@ -34,7 +39,7 @@ public class AuthCompanyUseCase {
         var passwordMatches = this.passwordEncoder.matches(authCompanyDTO.getPassword(), company.getPassword());
 
         // Se não for igual, retorna erro
-        if (!passwordMatches) {
+        if (!passwordMatches) { 
             throw new AuthenticationException();
         }
 
@@ -43,6 +48,7 @@ public class AuthCompanyUseCase {
 
         return JWT.create()
                 .withIssuer("gestaovagas")
+                .withExpiresAt(Instant.now().plus(Duration.ofHours(Integer.parseInt(expireInHours))))
                 .withSubject(company.getId().toString())
                 .sign(algorithm);
     }
