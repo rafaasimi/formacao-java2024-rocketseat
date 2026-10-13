@@ -39,7 +39,7 @@ public class AuthCompanyUseCase {
         var passwordMatches = this.passwordEncoder.matches(authCompanyDTO.getPassword(), company.getPassword());
 
         // Se não for igual, retorna erro
-        if (!passwordMatches) { 
+        if (!passwordMatches) {
             throw new AuthenticationException();
         }
 
