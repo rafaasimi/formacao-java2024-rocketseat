@@ -17,10 +17,10 @@ import java.time.Instant;
 @Service
 public class AuthCompanyUseCase {
 
-    @Value("${security.token.secret}")
+    @Value("${security.token.secret.company}")
     private String secretKey;
 
-        @Value("${security.token.expireInHours}")
+    @Value("${security.token.expireInHours}")
     private String expireInHours;
 
     @Autowired
@@ -30,10 +30,9 @@ public class AuthCompanyUseCase {
     private PasswordEncoder passwordEncoder;
 
     public String execute(AuthCompanyDTO authCompanyDTO) throws AuthenticationException {
-        var company = companyRepository.findByUsername(authCompanyDTO.getUsername())
-                .orElseThrow(() -> {
-                    throw new UsernameNotFoundException("Usuário ou senha incorreta");
-                });
+        var company = companyRepository.findByUsername(authCompanyDTO.getUsername()).orElseThrow(() -> {
+            throw new UsernameNotFoundException("Usuário ou senha incorreta");
+        });
 
         // Verificar se a senha são iguais
         var passwordMatches = this.passwordEncoder.matches(authCompanyDTO.getPassword(), company.getPassword());
@@ -46,11 +45,7 @@ public class AuthCompanyUseCase {
         // Se for igual -> Gerar o token
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
 
-        return JWT.create()
-                .withIssuer("gestaovagas")
-                .withExpiresAt(Instant.now().plus(Duration.ofHours(Integer.parseInt(expireInHours))))
-                .withSubject(company.getId().toString())
-                .sign(algorithm);
+        return JWT.create().withIssuer("gestaovagas").withExpiresAt(Instant.now().plus(Duration.ofHours(Integer.parseInt(expireInHours)))).withSubject(company.getId().toString()).sign(algorithm);
     }
 
 }

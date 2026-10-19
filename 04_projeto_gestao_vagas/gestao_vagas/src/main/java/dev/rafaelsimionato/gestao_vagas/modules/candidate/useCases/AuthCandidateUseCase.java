@@ -50,15 +50,17 @@ public class AuthCandidateUseCase {
         // Se for igual -> Gerar o token
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
 
+        var expiresIn = Instant.now().plus(Duration.ofHours(Integer.parseInt(expireInHours)));
         var token = JWT.create()
                 .withIssuer("gestaovagas")
-                .withExpiresAt(Instant.now().plus(Duration.ofHours(Integer.parseInt(expireInHours))))
+                .withExpiresAt(expiresIn)
                 .withSubject(candidate.getId().toString())
                 .withClaim("roles", List.of("candidate"))
                 .sign(algorithm);
 
         return AuthCandidateResponseDTO.builder()
                 .access_token(token)
+                .expires_in(expiresIn.toEpochMilli())
                 .build();
     }
 
