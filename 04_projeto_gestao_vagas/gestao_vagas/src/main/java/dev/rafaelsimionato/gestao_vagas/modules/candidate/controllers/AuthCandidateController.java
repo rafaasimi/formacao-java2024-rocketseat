@@ -1,7 +1,6 @@
 package dev.rafaelsimionato.gestao_vagas.modules.candidate.controllers;
 
 import dev.rafaelsimionato.gestao_vagas.modules.candidate.dtos.AuthCandidateRequestDTO;
-import dev.rafaelsimionato.gestao_vagas.modules.candidate.dtos.AuthCandidateResponseDTO;
 import dev.rafaelsimionato.gestao_vagas.modules.candidate.useCases.AuthCandidateUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
