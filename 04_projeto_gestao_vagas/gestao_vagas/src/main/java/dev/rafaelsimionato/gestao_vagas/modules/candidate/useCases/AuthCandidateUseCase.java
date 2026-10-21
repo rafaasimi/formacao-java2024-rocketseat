@@ -2,6 +2,7 @@ package dev.rafaelsimionato.gestao_vagas.modules.candidate.useCases;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import dev.rafaelsimionato.gestao_vagas.enums.RolesEnum;
 import dev.rafaelsimionato.gestao_vagas.modules.candidate.dtos.AuthCandidateRequestDTO;
 import dev.rafaelsimionato.gestao_vagas.modules.candidate.dtos.AuthCandidateResponseDTO;
 import dev.rafaelsimionato.gestao_vagas.modules.candidate.repositories.CandidateRepository;
@@ -55,7 +56,7 @@ public class AuthCandidateUseCase {
                 .withIssuer("gestaovagas")
                 .withExpiresAt(expiresIn)
                 .withSubject(candidate.getId().toString())
-                .withClaim("roles", List.of("candidate"))
+                .withClaim("roles", List.of(RolesEnum.CANDIDATE.toString()))
                 .sign(algorithm);
 
         return AuthCandidateResponseDTO.builder()
