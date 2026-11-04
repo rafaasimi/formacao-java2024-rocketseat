@@ -1,6 +1,7 @@
 package dev.rafaelsimionato.gestao_vagas.modules.company.controllers;
 
 import dev.rafaelsimionato.gestao_vagas.modules.company.dtos.AuthCompanyRequestDTO;
+import dev.rafaelsimionato.gestao_vagas.modules.company.dtos.AuthCompanyResponseDTO;
 import dev.rafaelsimionato.gestao_vagas.modules.company.useCases.AuthCompanyUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ public class AuthCompanyController {
     private AuthCompanyUseCase authCompanyUseCase;
 
     @PostMapping("/auth")
-    public ResponseEntity<String> create(@RequestBody AuthCompanyRequestDTO authCompanyRequestDTO) {
+    public ResponseEntity<Object> create(@RequestBody AuthCompanyRequestDTO authCompanyRequestDTO) {
         try {
             var result = authCompanyUseCase.execute(authCompanyRequestDTO);
             return ResponseEntity.ok().body(result);
