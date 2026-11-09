@@ -1,5 +1,6 @@
 package dev.rafaelsimionato.gestao_vagas.modules.candidate.controllers;
 
+import dev.rafaelsimionato.gestao_vagas.modules.candidate.dtos.ProfileCandidateResponseDTO;
 import dev.rafaelsimionato.gestao_vagas.modules.candidate.entities.CandidateEntity;
 import dev.rafaelsimionato.gestao_vagas.modules.candidate.useCases.CreateCandidateUseCase;
 import dev.rafaelsimionato.gestao_vagas.modules.candidate.useCases.ListAllJobsByFilterUseCase;
@@ -49,6 +50,19 @@ public class CandidateController {
 
     @GetMapping("/")
     @PreAuthorize("hasRole('CANDIDATE')")
+    @Tag(name = "Candidato", description = "Informações do candidato")
+    @Operation(
+            summary = "Perfil do candidato",
+            description = "Endpoint responsável por buscar as informações do perfil do candidato."
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = {
+                    @Content(
+                            schema = @Schema(implementation = ProfileCandidateResponseDTO.class))
+            }),
+            @ApiResponse(responseCode = "400", description = "Candidato não encontrado")
+    })
+    @SecurityRequirement(name = "jwt_auth")
     public ResponseEntity<Object> get(HttpServletRequest request) {
         var candidateId = request.getAttribute("candidate_id");
 
@@ -69,10 +83,10 @@ public class CandidateController {
     )
     @ApiResponses(
             @ApiResponse(responseCode = "200", content = {
-                            @Content(
-                                    array = @ArraySchema(schema = @Schema(implementation = JobEntity.class))
-                            )
-                    }
+                    @Content(
+                            array = @ArraySchema(schema = @Schema(implementation = JobEntity.class))
+                    )
+            }
             )
     )
     @SecurityRequirement(name = "jwt_auth")
