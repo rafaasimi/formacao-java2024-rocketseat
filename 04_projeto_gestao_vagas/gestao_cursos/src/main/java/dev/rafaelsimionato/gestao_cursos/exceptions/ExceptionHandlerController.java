@@ -40,8 +40,13 @@ public class ExceptionHandlerController {
     }
 
     @ExceptionHandler(CourseNotFoundException.class)
-    public ResponseEntity<Object> handleUserFoundException(CourseNotFoundException e) {
-        return ResponseEntity.badRequest().body(e.getMessage());
+    public ResponseEntity<ErrorMessageDTO> handleCourseNotFoundException(CourseNotFoundException e) {
+
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.builder()
+                .message(e.getMessage())
+                .build();
+
+        return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
     }
 
 }

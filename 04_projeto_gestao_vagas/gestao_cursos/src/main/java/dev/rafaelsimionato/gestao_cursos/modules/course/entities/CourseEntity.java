@@ -1,5 +1,6 @@
 package dev.rafaelsimionato.gestao_cursos.modules.course.entities;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,10 +26,13 @@ public class CourseEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Schema(example = "React para iniciantes")
     private String name;
 
+    @Schema(example = "REACT")
     private String category;
 
+    @Schema(example = "Mayk Brito")
     private String teacher;
 
     private Boolean active;
